@@ -19,8 +19,8 @@ Ein alter 3D-Drucker **Artillery Genius Pro** wird zum **Stiftplotter** umgebaut
 | Bewegung | Kopf fährt in X, **Bett fährt in Y** |
 | Stift heben/senken | über die **Z-Achse** (kein Servo). `Z0` = Stift auf Papier, `Z3` = Stift hoch, `Z20` = weit hoch |
 | Papier | A5 passt komplett, A4 **nicht ganz** |
-| Befestigung Halter | rechte blaue Abdeckung am Druckkopf, 2 Schrauben (oben rechts, unten rechts). Gemessen 01.11.: untere Schraube → Düsenspitze **70 mm** senkrecht; Schraube **14 mm** lang, Kopf **Ø 6 mm** (vermutlich M3). Schraubenabstand **33 mm** (Mitte–Mitte). Offen: Stift-Ø |
-| Stifthalter | `hardware/stifthalter.scad/.stl` (Entwurf 01.11., ungedruckt): Platte mit Rundloch + Bogen-Langloch (r 33 mm um untere Schraube), Hülse mit Gummiband-Federung + Klemmring; `stift_d` = 11 mm **geschätzt**. Vorher: noch offen (erst provisorisch mit Kabelbindern, später gefederter Eigenbau in OpenSCAD) |
+| Befestigung Halter | Werte vom 01.11. (70 mm zur Düse, Schraube 14 mm/Kopf Ø 6, Abstand 33 mm) sind **unklar zugeordnet** – vor Verwendung für Gruppe 2 neu messen |
+| Stifthalter | `hardware/stifthalter.scad/.stl` v2 (01.11., ungedruckt): an den 2 kleinen Schrauben des blauen Metallwinkels über dem blauen Kasten („Gruppe 2“; NICHT die Schrauben unter den Rollen), Arm gerade nach vorn über den Kasten, Steg nach unten, Hülse + Loch im Arm als Führungen, Gummiband-Federung + Klemmring. **Maße noch geschätzt** (Schraubenabstand, Schraube→Düse, Kasten-Überstand, Stift-Ø) |
 | Versatz Stift ↔ Düse | **noch nicht gemessen**. Bis dahin keine absoluten Koordinaten als „exakt“ annehmen. |
 
 ## G-Code-Regeln (unbedingt einhalten)
