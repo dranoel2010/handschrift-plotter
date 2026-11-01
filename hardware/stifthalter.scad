@@ -31,6 +31,8 @@ gesamt_hoehe = 85;    // Wunsch Nutzer 01.11.: Oberkante Arm bis Unterkante Bech
 staerke      = 4;     // Materialstärke der Arme (wie im Konzeptbild)
 arm_tief     = 6;     // Tiefe der senkrechten Arme (X)
 luft         = 2;     // Abstand Arme ↔ Kasten
+frei         = 22;    // vor den Schraubenköpfen frei für Schraube + Inbusschlüssel (mm ab Winkelfläche)
+steg_b       = 3;     // Mittelsteg zwischen den Schrauben (Köpfe Ø 6 bei 13 mm Abstand ±1,5 Langloch lassen 3,5 mm)
 lasche_unten = 4;    // 01.11. nach Probedruck: Lasche nur so hoch wie der Arm (8 mm), Loch mittig; darunter ist am Drucker kein Platz
 oben         = 4;     // Oberkante von Lasche und Arm über Schraubenmitte (vorher 9; Form unverändert, nur Löcher 5 mm höher)
 arm_hoehe    = 8;     // Höhe des waagerechten Teils (lange Auskragung → steifer)
@@ -59,8 +61,8 @@ module arm(s) {   // s = +1 / -1 (Seite)
         union() {
             // Lasche an der Schraube (liegt flach an der Winkelfläche)
             translate([0, s > 0 ? 1 : -lasche_y, -lasche_unten]) cube([staerke, lasche_y - 1, lasche_unten + oben]);
-            // waagerecht nach vorn über den Kasten
-            translate([0, y0, oben - arm_hoehe]) cube([achse_x + arm_tief / 2, staerke, arm_hoehe]);
+            // waagerecht nach vorn über den Kasten – erst ab x = frei, davor müssen Schraube + Schlüssel durch
+            translate([frei, y0, oben - arm_hoehe]) cube([achse_x + arm_tief / 2 - frei, staerke, arm_hoehe]);
             // senkrecht nach unten vor dem Kasten bis zum Becher
             translate([achse_x - arm_tief / 2, y0, z_unten]) cube([arm_tief, staerke, oben - z_unten]);
         }
@@ -73,8 +75,12 @@ module halter() {
     difference() {
         union() {
             arm(1); arm(-1);
-            // durchgehende Platte zwischen den Armen über dem Kasten, endet hinter dem Stift
-            translate([staerke, -arm_aussen, oben - 4]) cube([achse_x - becher_r - 2 - staerke, 2 * arm_aussen, 4]);
+            // Mittelsteg zwischen den Schrauben nach vorn (vor den Schraubenköpfen bleibt es frei)
+            translate([0, -steg_b / 2, oben - arm_hoehe]) cube([frei + 6, steg_b, arm_hoehe]);
+            // Querriegel: verbindet Mittelsteg und beide Arme
+            translate([frei, -arm_aussen, oben - arm_hoehe]) cube([6, 2 * arm_aussen, arm_hoehe]);
+            // Platte zwischen den Armen ab dem Querriegel, endet hinter dem Stift
+            translate([frei, -arm_aussen, oben - 4]) cube([achse_x - becher_r - 2 - frei, 2 * arm_aussen, 4]);
             translate([achse_x, 0, z_unten]) cylinder(r = becher_r, h = becher_h);
             // Führungsring oben: versteift die Arme, Stift bleibt nach oben herausziehbar
             translate([achse_x, 0, ring_z]) cylinder(r = becher_r, h = 5);
