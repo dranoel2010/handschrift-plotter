@@ -98,7 +98,7 @@ def gcode(pfade, b, h, datei, breite_mm, x0=20.0, y0=20.0):
     z = ["; Handschrift-Plotter – erzeugt von werkzeuge/foto_zu_linien.py",
          f"; {len(pfade)} Linienzüge, Breite {breite_mm} mm, Start bei X{x0} Y{y0}",
          "; VORHER: Stift von Hand auf Papier absenken (Z), dann starten. Kein Home All!",
-         "M104 S10", "M140 S10", "M107", "G21", "G90", "G92 Z0", "G1 Z5 F600", "G28 X Y"]
+         "M412 S0", "M104 S10", "M140 S10", "M107", "G21", "G90", "G92 Z0", "G1 Z5 F600", "G28 X Y"]
     for p in pfade:
         gx, gy = xy(*p[0])
         z += [f"G0 X{gx:.2f} Y{gy:.2f} F6000", "G1 Z0 F600"]
