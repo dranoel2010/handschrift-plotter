@@ -20,6 +20,9 @@
 ;   1. Kopf fährt so, dass der Haken über der Sollposition der Buchse steht (Stift bei X10 Y70).
 ;      Display zeigt "Platte ausrichten". 30 Sekunden Zeit: Platte so schieben, dass die
 ;      Buchse genau unter der Haken-Schraube liegt. Hände weg, wenn die Zeit um ist!
+;      MIT SCHIENEN (hardware/schienen.stl) lässt sich die Platte nur vor/zurück schieben.
+;      Steht der Haken dann seitlich NICHT über der Buchse: Test abbrechen, Kopf am Display
+;      in X verschieben, bis er passt, den X-Wert ablesen und melden → X10 wird angepasst.
 ;   2. Zwei Kreuze bei Y100: links (X50) und rechts (X190).
 ;   3. Haken senkt sich in die Buchse, Bett fährt 100 mm, Haken hebt sich.
 ;   4. Dieselben zwei Kreuze bei Y200. Stimmt alles, liegen beide genau auf den ersten.
