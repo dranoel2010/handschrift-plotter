@@ -1,48 +1,48 @@
-// Gefederter Stifthalter für den Artillery Genius Pro (Handschrift-Plotter)
+// Stifthalter v2 für den Artillery Genius Pro (Handschrift-Plotter)
 //
-// Montage: an die rechte blaue Abdeckung des Druckkopfs, mit deren 2 Schrauben (M3).
-//   - Untere Schraube durch das runde Loch.
-//   - Obere Schraube durch das Bogen-Langloch (Radius = Schraubenabstand um die untere).
-//     → Platte lässt sich um die untere Schraube drehen: Stift senkrecht ausrichten, dann festziehen.
-// Feder: Gummiband(er) vom Ring am Stift zu den Haken unten an der Hülse. Der Ring liegt
-//   auf der Hülse auf (= tiefste Stiftposition). Drückt das Papier den Stift hoch, hebt der
-//   Ring ab und das Gummi zieht ihn zurück.
-// Höhe einstellen: Ring auf dem Stift so verschieben, dass die Spitze 2–3 mm unter der Düse steht.
+// Form (Wunsch des Nutzers 01.11.): an den 2 kleinen Schrauben des blauen Metallwinkels
+// über dem blauen Kasten ("Gruppe 2") festschrauben → Arm geht GERADE nach vorn über den
+// Kasten → dann NACH UNTEN zur Hülse, in die der Stift kommt.
 //
-// Koordinaten (Modell): X = von der Abdeckung nach außen, Y = waagerecht entlang der Abdeckung,
-//   Z = senkrecht, Ursprung = Mitte der unteren Schraube auf der Abdeckung. Düsenspitze bei Z = -70.
-// Druck: Datei ist schon gedreht (Rückseite der Platte liegt auf dem Bett), PLA, 0,2 mm,
-//   3 Wände, 30 % Infill, keine Stützen nötig.
+// Der Stift läuft durch zwei Führungen: Loch im Arm (oben) und Hülse (unten).
+// Feder: Gummiband vom Klemmring am Stift zu den Haken unten an der Hülse. Der Ring liegt auf
+//   der Hülse auf = tiefste Stiftposition; drückt das Papier den Stift hoch, hebt der Ring ab.
+// Höhe einstellen: Ring auf dem Stift verschieben, bis die Spitze 2–3 mm unter der Düse steht.
+// Montage: immer nur EINE Schraube lösen, Halter dazwischen, wieder fest, dann die zweite.
+//
+// Koordinaten: X = nach vorn (weg vom Winkel), Y = waagerecht entlang des Winkels,
+//   Z = senkrecht, Ursprung = Mitte zwischen den beiden Schrauben auf der Winkelfläche.
+//
+// !!! Alle mit "SCHÄTZUNG" markierten Werte sind noch nicht gemessen !!!
 
-/* [Gemessen] */
-schraube_abstand = 33;    // Mitte–Mitte, gemessen 01.11.
-schraube_d       = 3.4;   // M3 + Spiel
-stift_d          = 11;    // !!! noch messen (Schaft, wo Hülse und Ring sitzen)
+/* [Gemessen / zu messen] */
+schraube_abstand = 12;    // SCHÄTZUNG: Mitte–Mitte der beiden Schrauben
+schraube_d       = 3.4;   // SCHÄTZUNG: M3 + Spiel
+kopf_d           = 6;     // Kopf-Ø (für Freiraum)
+duese_unten      = 70;    // SCHÄTZUNG: Schrauben → Düsenspitze, senkrecht
+kasten_vor       = 25;    // SCHÄTZUNG: wie weit der blaue Kasten vor die Schraubenfläche ragt
+stift_d          = 11;    // SCHÄTZUNG: Stift-Ø am Schaft
 
 /* [Konstruktion] */
-platte_dicke  = 4;
-bogen_winkel  = 25;       // ± Grad: deckt seitlichen Versatz bis ~14 mm ab
-spiel         = 0.4;      // Hülse: Stift muss leicht gleiten
-wand          = 2.2;
-huelse_oben   = -18;      // Oberkante Hülse (Z); darüber Platz für Ring + Federweg
-huelse_unten  = -50;      // Unterkante Hülse; Abstand zum Bett ~20 mm
-achse_x       = 14;       // Stiftachse vor der Abdeckung (Stift läuft vor den Schraubenköpfen vorbei)
-ring_h        = 8;
+dicke     = 4;      // Lasche und Arm
+abstand   = 3;      // Luft zwischen Kasten und Halter
+spiel     = 0.4;
+wand      = 2.2;
+huelse_h  = 30;
+huelse_ab_bett = 20;   // Unterkante Hülse über Düsenspitze
+ring_h    = 8;
 $fn = 64;
 
 huelse_r = stift_d / 2 + spiel / 2 + wand;
+achse_x  = kasten_vor + abstand + dicke + huelse_r;     // Stiftachse vor der Schraubenfläche
+z_unten  = -duese_unten + huelse_ab_bett;                // Unterkante Hülse
+z_oben   = z_unten + huelse_h;                           // Oberkante Hülse
+breite   = max(schraube_abstand + kopf_d + 6, 2 * huelse_r + 4);
 
 module zyl_x(d, l) { rotate([0, 90, 0]) cylinder(d = d, h = l); }
 
-module bogenloch() {
-    for (a = [90 - bogen_winkel : 2 : 90 + bogen_winkel - 2])
-        hull() for (b = [a, a + 2])
-            translate([-1, schraube_abstand * cos(b), schraube_abstand * sin(b)])
-                zyl_x(schraube_d, platte_dicke + 2);
-}
-
-module haken(seite) {   // Zapfen mit Kopf für das Gummiband
-    translate([achse_x, seite * (huelse_r - 0.5), huelse_unten + 4])
+module haken(seite) {
+    translate([achse_x, seite * (huelse_r - 0.5), z_unten + 4])
         rotate([seite * -90, 0, 0]) {
             cylinder(d = 3, h = 5.5);
             translate([0, 0, 5.5]) cylinder(d1 = 3, d2 = 5, h = 1.2);
@@ -52,23 +52,25 @@ module haken(seite) {   // Zapfen mit Kopf für das Gummiband
 module halter() {
     difference() {
         union() {
-            // Montageplatte
-            translate([0, -17, huelse_unten]) cube([platte_dicke, 34, schraube_abstand + 5 - huelse_unten]);
-            // Steg zwischen Platte und Hülse
-            translate([0, -9, huelse_unten]) cube([achse_x, 18, huelse_oben - huelse_unten]);
+            // Lasche an den Schrauben (liegt an der Winkelfläche an)
+            translate([0, -breite / 2, -kopf_d / 2 - 3]) cube([dicke, breite, kopf_d + 6]);
+            // Arm gerade nach vorn (oberhalb des Kastens)
+            translate([0, -breite / 2, kopf_d / 2 + 3 - dicke]) cube([achse_x + huelse_r + 2, breite, dicke]);
+            // senkrechter Steg nach unten (vor dem Kasten)
+            translate([achse_x - huelse_r - dicke + 1, -breite / 2, z_unten])
+                cube([dicke, breite, kopf_d / 2 + 3 - z_unten]);
             // Hülse
-            translate([achse_x, 0, huelse_unten]) cylinder(r = huelse_r, h = huelse_oben - huelse_unten);
+            translate([achse_x, 0, z_unten]) cylinder(r = huelse_r, h = huelse_h);
             haken(1); haken(-1);
         }
-        // Bohrung für den Stift
-        translate([achse_x, 0, huelse_unten - 1]) cylinder(d = stift_d + spiel, h = 100);
+        // Stift: durch Hülse und Arm
+        translate([achse_x, 0, z_unten - 1]) cylinder(d = stift_d + spiel, h = 300);
         // Schraubenlöcher
-        translate([-1, 0, 0]) zyl_x(schraube_d, platte_dicke + 2);
-        bogenloch();
+        for (s = [1, -1]) translate([-1, s * schraube_abstand / 2, 0]) zyl_x(schraube_d, dicke + 2);
     }
 }
 
-module ring() {   // Klemmring auf dem Stift, mit Zapfen für das Gummiband
+module ring() {
     difference() {
         union() {
             cylinder(d = stift_d + 7, h = ring_h);
@@ -77,11 +79,15 @@ module ring() {   // Klemmring auf dem Stift, mit Zapfen für das Gummiband
                 translate([0, 0, stift_d / 2 + 3.5 + 4]) cylinder(d1 = 3, d2 = 5, h = 1.2);
             }
         }
-        translate([0, 0, -1]) cylinder(d = stift_d - 0.2, h = ring_h + 2);   // klemmt leicht
-        translate([0, -0.75, -1]) cube([stift_d, 1.5, ring_h + 2]);           // Schlitz zum Federn
+        translate([0, 0, -1]) cylinder(d = stift_d - 0.2, h = ring_h + 2);
+        translate([0, -0.75, -1]) cube([stift_d, 1.5, ring_h + 2]);
     }
 }
 
-// Druckanordnung: Halter mit der Plattenrückseite (X = 0) nach unten, Ring daneben
-rotate([0, -90, 0]) halter();
-translate([0, 40, 0]) ring();
+// Druckanordnung: Halter kopfüber (Oberseite des Arms liegt auf dem Bett, Hülse zeigt nach oben),
+// Ring daneben. Keine Stützen nötig.
+druck = true;
+if (druck) {
+    translate([0, 0, kopf_d / 2 + 3]) rotate([180, 0, 0]) halter();
+    translate([-22, 0, 0]) ring();
+} else halter();
