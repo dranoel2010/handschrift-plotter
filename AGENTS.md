@@ -40,6 +40,7 @@ Vorlage für Kopf und Ende: `test.gcode`.
 - `README.md`: Kurzbeschreibung für Menschen
 - `test.gcode`: Probelauf (Quadrat 60 × 60 mm, Diagonalen, Kreis r = 25 um X110 Y110). Bisher **nicht auf dem Drucker getestet**.
 - `proben/` (**git-ignoriert**, Repo ist öffentlich): `proben/schulapp/` = 18 Heftseiten-Fotos aus der Schulapp (1200×1600, Karopapier) als Stilreferenz. Nie committen.
+- `werkzeuge/foto_zu_linien.py`: Foto → Tinte vom Karo trennen → Skelett → Linienzüge (SVG, Vergleichsbild, optional G-Code). Braucht `werkzeuge/requirements.txt`; auf dem NAS liegt die venv in `~/.venvs/plotter` (außerhalb von Drive). Ausgaben mit echter Handschrift nur nach `proben/vorschau/`.
 - Geplant (noch nicht vorhanden): Python-Skript Text → G-Code, saubere Glyphen-Proben, OpenSCAD-Datei für den Stifthalter
 
 ## Offene Entscheidungen – nicht eigenmächtig festlegen
