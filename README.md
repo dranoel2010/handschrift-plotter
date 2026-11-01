@@ -4,4 +4,6 @@ Artillery Genius Pro als Stiftplotter; später ein Python-Skript, das Text in de
 
 - `test.gcode` – Probelauf (Quadrat, Diagonalen, Kreis). Anleitung steht oben in der Datei.
 
+Für KI-Agenten: `AGENTS.md`.
+
 Steckbrief: `wiki/topics/handschrift-plotter.md` im Topic `vibe-coding`.
