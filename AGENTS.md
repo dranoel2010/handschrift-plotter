@@ -39,7 +39,8 @@ Vorlage für Kopf und Ende: `test.gcode`.
 
 - `README.md`: Kurzbeschreibung für Menschen
 - `test.gcode`: Probelauf (Quadrat 60 × 60 mm, Diagonalen, Kreis r = 25 um X110 Y110). Bisher **nicht auf dem Drucker getestet**.
-- Geplant (noch nicht vorhanden): Python-Paket/Skript Text → G-Code, Ordner mit Schriftproben, OpenSCAD-Datei für den Stifthalter
+- `proben/` (**git-ignoriert**, Repo ist öffentlich): `proben/schulapp/` = 18 Heftseiten-Fotos aus der Schulapp (1200×1600, Karopapier) als Stilreferenz. Nie committen.
+- Geplant (noch nicht vorhanden): Python-Skript Text → G-Code, saubere Glyphen-Proben, OpenSCAD-Datei für den Stifthalter
 
 ## Offene Entscheidungen – nicht eigenmächtig festlegen
 
