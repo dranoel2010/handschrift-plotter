@@ -44,7 +44,7 @@ Vorlage für Kopf und Ende: `test.gcode`.
 - `werkzeuge/foto_zu_linien.py`: Foto → Tinte vom Karo trennen → Skelett → Linienzüge (SVG, Vergleichsbild, optional G-Code). Braucht `werkzeuge/requirements.txt`; auf dem NAS liegt die venv in `~/.venvs/plotter` (außerhalb von Drive). Ausgaben mit echter Handschrift nur nach `proben/vorschau/`.
 - `werkzeuge/glyphen_schneiden.py`: halbautomatisch Buchstaben ausschneiden (schneiden → `labels.json` beschriften → bauen → `glyphen.json`, Einheit x-Höhe, Grundlinie y=0). Arbeitsordner `proben/glyphen/` (privat).
 - `pause_test.gcode`: Test für A4 in zwei Abschnitten – Kreuz zeichnen, Pause (`M0`), Blatt 100 mm nach hinten schieben, Kreuz erneut. Prüft, ob das Display `M0` kann und wie genau verschoben wird. **Noch nicht getestet.** Annahme: Drucker-Y+ = Richtung Rückseite des Betts.
-- `hardware/papierfuehrung.scad` + `papierfuehrung_stl.py` → `papierfuehrung.stl`: Leiste zum Aufkleben links auf dem Bett, Lippe für die linke Blattkante, zwei Kerben im Abstand 100 mm für die Blatt-Oberkante (Abschnitt 1/2). STL ohne OpenSCAD erzeugt.
+- `hardware/papierfuehrung.scad` → `papierfuehrung.stl`: Leiste zum Aufkleben links auf dem Bett, Lippe für die linke Blattkante, zwei Kerben im Abstand 100 mm für die Blatt-Oberkante (Abschnitt 1/2).
 - Geplant (noch nicht vorhanden): Python-Skript Text → G-Code (A4: Text **zwischen zwei Zeilen** in Abschnitte teilen, Versatz 100 mm, `M0`-Pause bzw. zwei Dateien, falls `M0` nicht geht), saubere Glyphen-Proben, OpenSCAD-Datei für den Stifthalter
 
 ## Offene Entscheidungen – nicht eigenmächtig festlegen
@@ -52,6 +52,10 @@ Vorlage für Kopf und Ende: `test.gcode`.
 - **Format der Schriftproben**: z. B. SVG-Pfade pro Glyphe oder JSON mit Strichlisten aus Tablet und Stylus. Vorschläge machen, aber den Nutzer entscheiden lassen.
 - Wie Buchstaben verbunden werden (Schreibschrift oder Druckschrift)
 - Maße des Druckkopfs für den Stifthalter (müssen gemessen werden)
+
+## OpenSCAD auf dem NAS
+
+`~/bin/openscad` (Snapshot 2026.10.31, entpacktes AppImage in `~/opt/openscad`, fehlende Grafik-Libs aus Debian bookworm in `~/opt/openscad/libs`). Headless: `~/bin/openscad --backend=manifold -o teil.stl teil.scad`. STL nach jeder SCAD-Änderung neu erzeugen und mitcommitten.
 
 ## Arbeitsweise
 
