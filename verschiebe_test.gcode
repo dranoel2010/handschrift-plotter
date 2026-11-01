@@ -20,10 +20,12 @@
 ;   1. Kopf fährt so, dass der Haken über der Sollposition der Buchse steht (Stift bei X10 Y70).
 ;      Display zeigt "Platte ausrichten". 30 Sekunden Zeit: Platte so schieben, dass die
 ;      Buchse genau unter der Haken-Schraube liegt. Hände weg, wenn die Zeit um ist!
-;   2. Kreuz bei X110 Y100.
+;   2. Zwei Kreuze bei Y100: links (X50) und rechts (X190).
 ;   3. Haken senkt sich in die Buchse, Bett fährt 100 mm, Haken hebt sich.
-;   4. Dasselbe Kreuz bei Y200. Stimmt alles, liegt es genau auf dem ersten.
-;      Abstand zwischen den Kreuzen = Fehler beim Verschieben (Spiel in der Buchse, Rutschen).
+;   4. Dieselben zwei Kreuze bei Y200. Stimmt alles, liegen beide genau auf den ersten.
+;      - beide gleich versetzt  → Verschiebung ungenau (Spiel in der Buchse, Rutschen)
+;      - nur RECHTS versetzt    → Tablett hat sich GEDREHT → Führungsschiene links aufs Bett
+;        (hardware/papierfuehrung.stl, Lippe 2 mm = Tablettdicke)
 
 M412 S0          ; Filament-Sensor aus
 M104 S10         ; Düse 10 °C (heizt praktisch nie)
@@ -43,14 +45,22 @@ M117 Platte ausrichten 30s
 G4 S30           ; 30 Sekunden warten
 M117 Test laeuft
 
-; --- 2. Kreuz vor dem Verschieben (X110 Y100) ---
-G0 X100 Y100 F6000
+; --- 2. Zwei Kreuze vor dem Verschieben (links X50, rechts X190, je Y100) ---
+G0 X40 Y100 F6000
 G1 Z10 F600
-G1 X120 Y100 F1000
+G1 X60 Y100 F1000
 G1 Z15 F600
-G0 X110 Y90 F6000
+G0 X50 Y90 F6000
 G1 Z10 F600
-G1 X110 Y110 F1000
+G1 X50 Y110 F1000
+G1 Z15 F600
+G0 X180 Y100 F6000
+G1 Z10 F600
+G1 X200 Y100 F1000
+G1 Z15 F600
+G0 X190 Y90 F6000
+G1 Z10 F600
+G1 X190 Y110 F1000
 G1 Z15 F600
 
 ; --- 3. Verschieben ---
@@ -62,14 +72,22 @@ G1 Y170 F600     ; Bett fährt 100 mm, Platte bleibt am Haken hängen
 G1 Z25 F300      ; Haken raus
 M117 Verschoben
 
-; --- 4. Kreuz nach dem Verschieben (X110 Y200) ---
-G0 X100 Y200 F6000
+; --- 4. Dieselben Kreuze nach dem Verschieben (Y200) ---
+G0 X40 Y200 F6000
 G1 Z10 F600
-G1 X120 Y200 F1000
+G1 X60 Y200 F1000
 G1 Z15 F600
-G0 X110 Y190 F6000
+G0 X50 Y190 F6000
 G1 Z10 F600
-G1 X110 Y210 F1000
+G1 X50 Y210 F1000
+G1 Z15 F600
+G0 X180 Y200 F6000
+G1 Z10 F600
+G1 X200 Y200 F1000
+G1 Z15 F600
+G0 X190 Y190 F6000
+G1 Z10 F600
+G1 X190 Y210 F1000
 G1 Z15 F600
 
 ; --- Ende ---
