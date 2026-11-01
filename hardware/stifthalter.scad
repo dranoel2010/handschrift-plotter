@@ -17,7 +17,7 @@
 //   Z = senkrecht, Ursprung = Mitte zwischen den beiden Schrauben auf der Winkelfläche.
 
 /* [Gemessen] */
-schraube_abstand = 10;    // vom Foto 20.27 abgelesen (~1 cm); Langlöcher gleichen ±1,5 mm aus
+schraube_abstand = 13;    // 01.11. nach Probedruck: Löcher weiter nach außen (vorher 10)
 langloch         = 1.5;
 schraube_d       = 3.4;   // M3 angenommen
 kopf_d           = 6;
@@ -31,8 +31,8 @@ gesamt_hoehe = 85;    // Wunsch Nutzer 01.11.: Oberkante Arm bis Unterkante Bech
 staerke      = 4;     // Materialstärke der Arme (wie im Konzeptbild)
 arm_tief     = 6;     // Tiefe der senkrechten Arme (X)
 luft         = 2;     // Abstand Arme ↔ Kasten
-lasche_unten = 3.5;   // Lasche reicht so weit unter die Schraubenmitte (Kasten-Oberkante knapp darunter)
-oben         = 9;     // Oberkante von Lasche und Arm über Schraubenmitte
+lasche_unten = 8.5;  // 01.11. nach Probedruck: Löcher 5 mm höher in der Lasche (vorher 3,5)
+oben         = 4;     // Oberkante von Lasche und Arm über Schraubenmitte (vorher 9; Form unverändert, nur Löcher 5 mm höher)
 arm_hoehe    = 8;     // Höhe des waagerechten Teils (lange Auskragung → steifer)
 spiel        = 0.5;
 wand         = 2.4;
@@ -49,7 +49,7 @@ z_unten    = oben - gesamt_hoehe;                 // Unterkante Becher
 arm_innen  = bohr_r + 0.5;                    // Arme laufen außen am Stift vorbei
 arm_aussen = arm_innen + staerke;
 haken_x    = achse_x + becher_r + 5;            // Haken-Schraube: so weit VOR der Stiftachse
-lasche_y   = max(arm_aussen, schraube_abstand / 2 + kopf_d / 2 + 2);
+lasche_y   = max(arm_aussen, schraube_abstand / 2 + langloch + kopf_d / 2 + 1);
 
 module zyl_x(d, l) { rotate([0, 90, 0]) cylinder(d = d, h = l); }
 
