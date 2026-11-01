@@ -26,7 +26,7 @@ Ein alter 3D-Drucker **Artillery Genius Pro** wird zum **Stiftplotter** umgebaut
 
 1. **Kein `G28` ohne Achsangabe und kein `G28 Z`.** Nur `G28 X Y`. Ein Z-Homing würde den Stift ins Bett drücken bzw. den Nullpunkt zerstören.
 2. **Kein Auto-Bed-Leveling** (`G29`) und kein `M420`.
-3. Am Anfang immer: Heizungen und Lüfter aus (`M104 S0`, `M140 S0`, `M107`), `G21`, `G90`, `G92 Z0`, dann **zuerst Stift hoch** (`G1 Z5`) und erst danach `G28 X Y`.
+3. Am Anfang immer: Heizungen praktisch aus (`M104 S10`, `M140 S10` – 10 °C statt 0, weil S0 am Genius Pro vermutlich Piepen auslöste; heizt bei Raumtemperatur nie), Lüfter aus (`M107`), `G21`, `G90`, `G92 Z0`, dann **zuerst Stift hoch** (`G1 Z5`) und erst danach `G28 X Y`.
 4. Stift **immer anheben**, bevor eine Leerfahrt (`G0`) kommt. Keine Leerfahrt mit `Z0`.
 5. Koordinaten müssen im Bereich **0–220** für X und Y bleiben. Am besten prüft das Skript es selbst und bricht sonst ab.
 6. Vorschübe: Zeichnen `F2000`, Leerfahrt `F6000`, Z `F600`. Ändern nur, wenn der Nutzer es nach einem Test so will.

@@ -7,8 +7,8 @@
 ;   3. Diese Datei starten. Die aktuelle Höhe wird als Z0 (= Stift unten) übernommen.
 ; NICHT vorher "Home All" oder Auto-Leveling – sonst stimmt Z nicht mehr.
 
-M104 S0          ; Düse aus
-M140 S0          ; Bett aus
+M104 S10         ; Düse 10 °C (heizt praktisch nie; S0 löste evtl. Piepen aus)
+M140 S10         ; Bett 10 °C (heizt praktisch nie)
 M107             ; Lüfter aus
 G21              ; Millimeter
 G90              ; absolute Koordinaten
