@@ -20,7 +20,7 @@ langloch         = 1.5;
 schraube_d       = 3.4;   // M3 angenommen
 kopf_d           = 6;
 duese_unten      = 75;    // vom Foto (~75 mm); unkritisch
-kasten_vor       = 20;    // gemessen: Kasten steht 2 cm vor die Schraubenfläche
+kasten_vor       = 63;    // gemessen 01.11.: Kasten-Vorderseite → Schraubenköpfe 60 mm, + ~3 mm Kopfhöhe
 stift_d          = 10;    // gemessen
 spitze_d         = 6;     // Loch unten: Mine/Spitzenkonus muss durchpassen, Schaft nicht
 
@@ -29,7 +29,8 @@ staerke      = 4;     // Materialstärke der Arme (wie im Konzeptbild)
 arm_tief     = 6;     // Tiefe der senkrechten Arme (X)
 luft         = 2;     // Abstand Arme ↔ Kasten
 lasche_unten = 3.5;   // Lasche reicht so weit unter die Schraubenmitte (Kasten-Oberkante knapp darunter)
-oben         = kopf_d / 2 + 2;   // Oberkante von Lasche und Arm über Schraubenmitte
+oben         = 9;     // Oberkante von Lasche und Arm über Schraubenmitte
+arm_hoehe    = 8;     // Höhe des waagerechten Teils (lange Auskragung → steifer)
 spiel        = 0.5;
 wand         = 2.4;
 becher_h     = 16;
@@ -55,7 +56,7 @@ module arm(s) {   // s = +1 / -1 (Seite)
             // Lasche an der Schraube (liegt flach an der Winkelfläche)
             translate([0, s > 0 ? 1 : -lasche_y, -lasche_unten]) cube([staerke, lasche_y - 1, lasche_unten + oben]);
             // waagerecht nach vorn über den Kasten
-            translate([0, y0, oben - staerke]) cube([achse_x + arm_tief / 2, staerke, staerke]);
+            translate([0, y0, oben - arm_hoehe]) cube([achse_x + arm_tief / 2, staerke, arm_hoehe]);
             // senkrecht nach unten vor dem Kasten bis zum Becher
             translate([achse_x - arm_tief / 2, y0, z_unten]) cube([arm_tief, staerke, oben - z_unten]);
         }
@@ -68,6 +69,8 @@ module halter() {
     difference() {
         union() {
             arm(1); arm(-1);
+            // durchgehende Platte zwischen den Armen über dem Kasten, endet hinter dem Stift
+            translate([staerke, -arm_aussen, oben - 4]) cube([achse_x - becher_r - 2 - staerke, 2 * arm_aussen, 4]);
             translate([achse_x, 0, z_unten]) cylinder(r = becher_r, h = becher_h);
             // Führungsring oben: versteift die Arme, Stift bleibt nach oben herausziehbar
             translate([achse_x, 0, ring_z]) cylinder(r = becher_r, h = 5);

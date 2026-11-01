@@ -20,7 +20,7 @@ Ein alter 3D-Drucker **Artillery Genius Pro** wird zum **Stiftplotter** umgebaut
 | Stift heben/senken | über die **Z-Achse** (kein Servo). `Z0` = Stift auf Papier, `Z3` = Stift hoch, `Z20` = weit hoch |
 | Papier | A5 passt komplett, A4 **nicht ganz** |
 | Befestigung Halter | Werte vom 01.11. (70 mm zur Düse, Schraube 14 mm/Kopf Ø 6, Abstand 33 mm) sind **unklar zugeordnet** – vor Verwendung für Gruppe 2 neu messen |
-| Stifthalter | `hardware/stifthalter.scad/.stl` v4 (01.11., ungedruckt; Form nach Konzeptbild `proben/…20.44.52.jpeg`): zwei getrennte Arme an den 2 kleinen Schrauben des blauen Metallwinkels („Gruppe 2“, Langlöcher), nach vorn über den 20 mm tiefen Kasten, davor nach unten; Führungsring auf halber Höhe + Becher unten mit Absatz. **Keine Feder: Stift schwimmt mit Eigengewicht**, oben herausziehbar. Stift-Ø 10 mm, Spitzenloch 6 mm, M3 angenommen |
+| Stifthalter | `hardware/stifthalter.scad/.stl` v4 (01.11., ungedruckt; Form nach Konzeptbild `proben/…20.44.52.jpeg`): zwei getrennte Arme an den 2 kleinen Schrauben des blauen Metallwinkels („Gruppe 2“, Langlöcher), nach vorn über den Kasten (Vorderseite → Schraubenköpfe 60 mm gemessen, im Modell 63 mm ab Winkelfläche), davor nach unten; oberer Teil 8 mm hoch mit Platte zwischen den Armen; Führungsring auf halber Höhe + Becher unten mit Absatz. **Keine Feder: Stift schwimmt mit Eigengewicht**, oben herausziehbar. Stift-Ø 10 mm, Spitzenloch 6 mm, M3 angenommen |
 | Versatz Stift ↔ Düse | **noch nicht gemessen**. Bis dahin keine absoluten Koordinaten als „exakt“ annehmen. |
 
 ## G-Code-Regeln (unbedingt einhalten)
