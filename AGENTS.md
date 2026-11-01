@@ -19,6 +19,7 @@ Ein alter 3D-Drucker **Artillery Genius Pro** wird zum **Stiftplotter** umgebaut
 | Bewegung | Kopf fährt in X, **Bett fährt in Y** |
 | Stift heben/senken | über die **Z-Achse** (kein Servo). `Z0` = Stift auf Papier, `Z3` = Stift hoch, `Z20` = weit hoch |
 | Papier | A5 passt komplett, A4 **nicht ganz** |
+| Befestigung Halter | rechte blaue Abdeckung am Druckkopf, 2 Schrauben (oben rechts, unten rechts). Gemessen 01.11.: untere Schraube → Düsenspitze **70 mm** senkrecht; Schraube **14 mm** lang, Kopf **Ø 6 mm** (vermutlich M3). Offen: Abstand der Schrauben, Stift-Ø |
 | Stifthalter | noch offen (erst provisorisch mit Kabelbindern, später gefederter Eigenbau in OpenSCAD) |
 | Versatz Stift ↔ Düse | **noch nicht gemessen**. Bis dahin keine absoluten Koordinaten als „exakt“ annehmen. |
 
