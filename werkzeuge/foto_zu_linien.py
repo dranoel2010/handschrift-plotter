@@ -82,7 +82,7 @@ def skelett_pfade(maske):
     return raus
 
 
-def gcode(pfade, b, h, datei, breite_mm, x0=20.0, y0=20.0):
+def gcode(pfade, b, h, datei, breite_mm, x0=20.0, y0=20.0, f_zeichnen=1000, hub=5.0):
     """Linienzüge als Marlin-G-Code. Bildbreite → breite_mm, links unten bei (x0, y0).
     Regeln wie in AGENTS.md: nur G28 X Y, Stift vor jeder Leerfahrt hoch, Bauraum prüfen."""
     s = breite_mm / b
@@ -104,8 +104,8 @@ def gcode(pfade, b, h, datei, breite_mm, x0=20.0, y0=20.0):
         z += [f"G0 X{gx:.2f} Y{gy:.2f} F6000", "G1 Z0 F600"]
         for y, x in p[1:]:
             gx, gy = xy(y, x)
-            z.append(f"G1 X{gx:.2f} Y{gy:.2f} F2000")
-        z.append("G1 Z3 F600")
+            z.append(f"G1 X{gx:.2f} Y{gy:.2f} F{f_zeichnen}")
+        z.append(f"G1 Z{hub} F600")
     z += ["G1 Z20 F600", "G0 X0 Y200 F6000", "M84"]
     open(datei, "w").write("\n".join(z) + "\n")
 
@@ -128,6 +128,8 @@ def main():
     ap.add_argument("--ausschnitt", default="0,0,1,1")
     ap.add_argument("--schwelle", type=float, default=0.72)
     ap.add_argument("--gcode-breite", type=float, default=0, help="Breite in mm; >0 → zusätzlich .gcode")
+    ap.add_argument("--f-zeichnen", type=int, default=1000, help="Zeichengeschwindigkeit mm/min (Fineliner: ≤1000)")
+    ap.add_argument("--hub", type=float, default=5.0, help="Stift-Hub zwischen Linien in mm")
     a = ap.parse_args()
 
     im = Image.open(a.bild).convert("RGB")
@@ -141,7 +143,7 @@ def main():
     b, hh = im.size
     svg(pfade, b, hh, a.praefix + ".svg")
     if a.gcode_breite > 0:
-        gcode(pfade, b, hh, a.praefix + ".gcode", a.gcode_breite)
+        gcode(pfade, b, hh, a.praefix + ".gcode", a.gcode_breite, f_zeichnen=a.f_zeichnen, hub=a.hub)
 
     # Vergleichsbild: Original | Maske | Linien
     linien = Image.new("RGB", (b, hh), "white")

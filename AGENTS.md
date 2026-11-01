@@ -29,7 +29,7 @@ Ein alter 3D-Drucker **Artillery Genius Pro** wird zum **Stiftplotter** umgebaut
 3. Am Anfang immer: **Filament-Sensor aus (`M412 S0`)** – ohne Filament pausiert der Drucker sonst und piept. Heizungen praktisch aus (`M104 S10`, `M140 S10`; heizt bei Raumtemperatur nie), Lüfter aus (`M107`), `G21`, `G90`, `G92 Z0`, dann **zuerst Stift hoch** (`G1 Z5`) und erst danach `G28 X Y`.
 4. Stift **immer anheben**, bevor eine Leerfahrt (`G0`) kommt. Keine Leerfahrt mit `Z0`.
 5. Koordinaten müssen im Bereich **0–220** für X und Y bleiben. Am besten prüft das Skript es selbst und bricht sonst ab.
-6. Vorschübe: Zeichnen `F2000`, Leerfahrt `F6000`, Z `F600`. Ändern nur, wenn der Nutzer es nach einem Test so will.
+6. Vorschübe: Zeichnen `F1000` (F2000 war im ersten Schrifttest zu schnell, Linien rissen ab), Leerfahrt `F6000`, Z `F600`, Hub zwischen Linien 5 mm. Ändern nur nach Test mit dem Nutzer.
 7. Am Ende: `G1 Z20`, Bett nach vorn (`G0 X0 Y200`), `M84`.
 8. Kommentare im G-Code auf Deutsch, mit `;`.
 
