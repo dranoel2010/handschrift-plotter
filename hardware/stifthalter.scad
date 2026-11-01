@@ -9,6 +9,8 @@
 //   - KEINE Feder: der Stift liegt durch sein Eigengewicht auf ("schwimmend"). Drückt das Papier,
 //     hebt er sich an. Z0 wird vor dem Start von Hand auf Papier gesetzt (G92 Z0), daher muss die
 //     Spitzenhöhe nicht genau stimmen – nur tiefer als die Düse.
+//   - vorn am Becher eine Öse für eine M3-Schraube nach unten ("Haken") für die Trägerplatte
+//     (traegerplatte.scad, verschiebe_test.gcode); Abstand zur Stiftachse = becher_r + 5 = 12,65 mm
 // Montage: immer nur EINE Schraube lösen, Arm dahinter, wieder fest, dann die zweite.
 //
 // Koordinaten: X = nach vorn (weg vom Winkel), Y = waagerecht entlang des Winkels,
@@ -46,6 +48,7 @@ achse_x    = kasten_vor + luft + becher_r;    // Stiftachse
 z_unten    = oben - gesamt_hoehe;                 // Unterkante Becher
 arm_innen  = bohr_r + 0.5;                    // Arme laufen außen am Stift vorbei
 arm_aussen = arm_innen + staerke;
+haken_x    = achse_x + becher_r + 5;            // Haken-Schraube: so weit VOR der Stiftachse
 lasche_y   = max(arm_aussen, schraube_abstand / 2 + kopf_d / 2 + 2);
 
 module zyl_x(d, l) { rotate([0, 90, 0]) cylinder(d = d, h = l); }
@@ -75,7 +78,15 @@ module halter() {
             translate([achse_x, 0, z_unten]) cylinder(r = becher_r, h = becher_h);
             // Führungsring oben: versteift die Arme, Stift bleibt nach oben herausziehbar
             translate([achse_x, 0, ring_z]) cylinder(r = becher_r, h = 5);
+            // Öse für die "Haken"-Schraube (M3, nach unten) zum Verschieben der Trägerplatte.
+            // Schräg (45°), damit sie kopfüber ohne Stützen druckbar ist.
+            hull() {
+                translate([achse_x + becher_r - 2, -4, z_unten]) cube([12, 8, 4]);
+                translate([achse_x + becher_r - 2, -4, z_unten + 14]) cube([1, 8, 0.01]);
+            }
         }
+        // M3 direkt ins PLA schrauben (Ø 2,8); Mutter von unten kontert
+        translate([haken_x, 0, z_unten - 1]) cylinder(d = 2.8, h = 20);
         // Becher: Schaft-Bohrung oben, kleines Loch unten für die Mine, kegeliger Absatz dazwischen
         translate([achse_x, 0, z_unten + boden]) cylinder(r = bohr_r, h = 200);
         translate([achse_x, 0, z_unten - 1]) cylinder(d = spitze_d, h = boden + 2);
