@@ -17,10 +17,11 @@
 // !!! Alle mit "SCHÄTZUNG" markierten Werte sind noch nicht gemessen !!!
 
 /* [Gemessen / zu messen] */
-schraube_abstand = 12;    // SCHÄTZUNG: Mitte–Mitte der beiden Schrauben
+schraube_abstand = 10;    // vom Foto 20.27 abgelesen (~1 cm), Langlöcher gleichen ±1,5 mm aus
+langloch          = 1.5;   // ± mm seitlich
 schraube_d       = 3.4;   // SCHÄTZUNG: M3 + Spiel
 kopf_d           = 6;     // Kopf-Ø (für Freiraum)
-duese_unten      = 70;    // SCHÄTZUNG: Schrauben → Düsenspitze, senkrecht
+duese_unten      = 75;    // vom Foto 20.27 abgelesen (~75 mm); unkritisch, Höhe stellt der Ring ein
 kasten_vor       = 25;    // SCHÄTZUNG: wie weit der blaue Kasten vor die Schraubenfläche ragt
 stift_d          = 11;    // SCHÄTZUNG: Stift-Ø am Schaft
 
@@ -71,7 +72,8 @@ module halter() {
         // Stift: durch Hülse und Arm
         translate([achse_x, 0, z_unten - 1]) cylinder(d = stift_d + spiel, h = 300);
         // Schraubenlöcher
-        for (s = [1, -1]) translate([-1, s * schraube_abstand / 2, 0]) zyl_x(schraube_d, dicke + 2);
+        for (s = [1, -1]) hull() for (v = [-langloch, langloch])
+            translate([-1, s * schraube_abstand / 2 + v, 0]) zyl_x(schraube_d, dicke + 2);
     }
 }
 
