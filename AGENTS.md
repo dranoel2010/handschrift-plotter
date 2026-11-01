@@ -15,7 +15,7 @@ Ein alter 3D-Drucker **Artillery Genius Pro** wird zum **Stiftplotter** umgebaut
 | Punkt | Wert |
 |---|---|
 | Drucker | Artillery Genius Pro, Firmware **Marlin** |
-| Bauraum | 220 × 220 mm (X × Y) |
+| Bauraum | 220 × 220 mm Fahrweg (X × Y); die Druckplatte selbst ist 230 × 230 mm (vom Nutzer gemessen) |
 | Bewegung | Kopf fährt in X, **Bett fährt in Y** |
 | Stift heben/senken | über die **Z-Achse** (kein Servo). `Z0` = Stift auf Papier, `Z3` = Stift hoch, `Z20` = weit hoch |
 | Papier | A5 passt komplett, A4 **nicht ganz** |
