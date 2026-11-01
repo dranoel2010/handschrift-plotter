@@ -42,7 +42,9 @@ Vorlage für Kopf und Ende: `test.gcode`.
 - `proben/` (**git-ignoriert**, Repo ist öffentlich): `proben/schulapp/` = 18 Heftseiten-Fotos aus der Schulapp (1200×1600, Karopapier) als Stilreferenz. Nie committen.
 - `werkzeuge/foto_zu_linien.py`: Foto → Tinte vom Karo trennen → Skelett → Linienzüge (SVG, Vergleichsbild, optional G-Code). Braucht `werkzeuge/requirements.txt`; auf dem NAS liegt die venv in `~/.venvs/plotter` (außerhalb von Drive). Ausgaben mit echter Handschrift nur nach `proben/vorschau/`.
 - `werkzeuge/glyphen_schneiden.py`: halbautomatisch Buchstaben ausschneiden (schneiden → `labels.json` beschriften → bauen → `glyphen.json`, Einheit x-Höhe, Grundlinie y=0). Arbeitsordner `proben/glyphen/` (privat).
-- Geplant (noch nicht vorhanden): Python-Skript Text → G-Code, saubere Glyphen-Proben, OpenSCAD-Datei für den Stifthalter
+- `pause_test.gcode`: Test für A4 in zwei Abschnitten – Kreuz zeichnen, Pause (`M0`), Blatt 100 mm nach hinten schieben, Kreuz erneut. Prüft, ob das Display `M0` kann und wie genau verschoben wird. **Noch nicht getestet.** Annahme: Drucker-Y+ = Richtung Rückseite des Betts.
+- `hardware/papierfuehrung.scad` + `papierfuehrung_stl.py` → `papierfuehrung.stl`: Leiste zum Aufkleben links auf dem Bett, Lippe für die linke Blattkante, zwei Kerben im Abstand 100 mm für die Blatt-Oberkante (Abschnitt 1/2). STL ohne OpenSCAD erzeugt.
+- Geplant (noch nicht vorhanden): Python-Skript Text → G-Code (A4: Text **zwischen zwei Zeilen** in Abschnitte teilen, Versatz 100 mm, `M0`-Pause bzw. zwei Dateien, falls `M0` nicht geht), saubere Glyphen-Proben, OpenSCAD-Datei für den Stifthalter
 
 ## Offene Entscheidungen – nicht eigenmächtig festlegen
 
