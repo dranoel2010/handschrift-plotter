@@ -25,6 +25,7 @@ stift_d          = 10;    // gemessen
 spitze_d         = 6;     // Loch unten: Mine/Spitzenkonus muss durchpassen, Schaft nicht
 
 /* [Konstruktion] */
+gesamt_hoehe = 85;    // Wunsch Nutzer 01.11.: Oberkante Arm bis Unterkante Becher
 staerke      = 4;     // Materialstärke der Arme (wie im Konzeptbild)
 arm_tief     = 6;     // Tiefe der senkrechten Arme (X)
 luft         = 2;     // Abstand Arme ↔ Kasten
@@ -35,14 +36,14 @@ spiel        = 0.5;
 wand         = 2.4;
 becher_h     = 16;
 boden        = 3;
-becher_ueber_duese = 8;   // Unterkante Becher so weit über der Düsenspitze
+becher_ueber_duese = 8;   // (nicht mehr benutzt, Höhe kommt aus gesamt_hoehe)
 ring_z       = -25;  // Höhe des oberen Führungsrings (Unterkante)
 $fn = 64;
 
 bohr_r     = (stift_d + spiel) / 2;
 becher_r   = bohr_r + wand;
 achse_x    = kasten_vor + luft + becher_r;    // Stiftachse
-z_unten    = -duese_unten + becher_ueber_duese;
+z_unten    = oben - gesamt_hoehe;                 // Unterkante Becher
 arm_innen  = bohr_r + 0.5;                    // Arme laufen außen am Stift vorbei
 arm_aussen = arm_innen + staerke;
 lasche_y   = max(arm_aussen, schraube_abstand / 2 + kopf_d / 2 + 2);
