@@ -22,10 +22,11 @@ langloch          = 1.5;   // ± mm seitlich
 schraube_d       = 3.4;   // SCHÄTZUNG: M3 + Spiel
 kopf_d           = 6;     // Kopf-Ø (für Freiraum)
 duese_unten      = 75;    // vom Foto 20.27 abgelesen (~75 mm); unkritisch, Höhe stellt der Ring ein
-kasten_vor       = 25;    // SCHÄTZUNG: wie weit der blaue Kasten vor die Schraubenfläche ragt
-stift_d          = 11;    // SCHÄTZUNG: Stift-Ø am Schaft
+kasten_vor       = 20;    // gemessen 01.11.: Kasten steht 2 cm vor die Schraubenfläche
+stift_d          = 10;    // gemessen 01.11.: 10 mm
 
 /* [Konstruktion] */
+lasche_unten = 3.5;  // Lasche reicht so weit unter die Schraubenmitte; Kasten-Oberkante muss tiefer liegen!
 dicke     = 4;      // Lasche und Arm
 abstand   = 3;      // Luft zwischen Kasten und Halter
 spiel     = 0.4;
@@ -58,7 +59,7 @@ module halter() {
     difference() {
         union() {
             // Lasche an den Schrauben (liegt an der Winkelfläche an)
-            translate([0, -breite / 2, -kopf_d / 2 - 3]) cube([dicke, breite, kopf_d + 6]);
+            translate([0, -breite / 2, -lasche_unten]) cube([dicke, breite, lasche_unten + kopf_d / 2 + 3]);
             // Arm gerade nach vorn (oberhalb des Kastens)
             translate([0, -breite / 2, kopf_d / 2 + 3 - dicke]) cube([achse_x + huelse_r + 2, breite, dicke]);
             // zwei Streben links und rechts vom Stift nach unten (vor dem Kasten)
